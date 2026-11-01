@@ -49,3 +49,4 @@ class ShopController extends Controller
         return view('pages.product-detail', compact('product', 'addons', 'relatedProducts'));
     }
 }
+

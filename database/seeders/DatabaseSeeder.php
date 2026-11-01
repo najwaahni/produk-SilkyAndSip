@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Addon;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Categories
+        // 1. Categories (Matching Stitch Prototype)
         $puddings = Category::create([
             'name' => 'Silky Puddings',
             'slug' => 'puddings',
@@ -33,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Curated pairings of silky puddings and signature dalgona coffee at special value.',
         ]);
 
-        // 2. Addons
+        // 2. Addons (Matching Stitch Prototype Gambar 4.3)
         Addon::create([
             'name' => 'Wild Honey Drizzle',
             'price' => 3000,
@@ -48,22 +50,15 @@ class DatabaseSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        Addon::create([
-            'name' => 'Whipped Dalgona Foam',
-            'price' => 2500,
-            'description' => 'Extra layer of dense, velvety hand-whipped coffee cloud.',
-            'is_active' => true,
-        ]);
-
-        // 3. Products
+        // 3. Products - ONLY 3 ITEMS (Silky Pudding Caramel, Coffee Dalgona, Bundling Package)
         $pudding = Product::create([
             'category_id' => $puddings->id,
             'name' => 'Silky Pudding Caramel',
             'slug' => 'silky-pudding-caramel',
             'price' => 12000,
             'original_price' => null,
-            'description' => 'Melt-in-your-mouth velvety caramel pudding made with pure Madagascar vanilla and topped with slow-roasted golden caramel sauce.',
-            'short_description' => 'Velvety vanilla custard pudding with rich golden caramel sauce.',
+            'description' => 'Melt-in-your-mouth vanilla bean pudding layered with our signature house-made artisanal salted caramel.',
+            'short_description' => 'Vanilla bean pudding with artisanal salted caramel.',
             'rating' => 4.9,
             'reviews_count' => 128,
             'image' => '/images/silky_pudding_caramel.jpg',
@@ -74,33 +69,33 @@ class DatabaseSeeder extends Seeder
             'allergens' => 'Contains Milk and Dairy. Gluten-free.',
         ]);
 
-        Product::create([
+        $dalgona = Product::create([
             'category_id' => $drinks->id,
             'name' => 'Coffee Dalgona',
             'slug' => 'coffee-dalgona',
             'price' => 15000,
             'original_price' => null,
-            'description' => 'Rich, whipped coffee foam layered over iced fresh milk, finished with a whisper of artisanal vanilla bean syrup.',
-            'short_description' => 'Whipped Arabica espresso foam cloud over chilled fresh milk.',
+            'description' => 'Rich, whipped coffee foam sitting atop chilled fresh milk with an optional touch of vanilla syrup.',
+            'short_description' => 'Rich whipped coffee foam atop chilled fresh milk.',
             'rating' => 4.8,
-            'reviews_count' => 95,
+            'reviews_count' => 96,
             'image' => '/images/coffee_dalgona.jpg',
             'is_featured' => true,
             'sweetness_level' => 'Regular',
             'coffee_intensity' => 'Balanced',
-            'ingredients' => 'Hand-whipped Arabica Espresso Foam, Full Cream Milk, Vanilla Extract, Raw Cane Sugar.',
+            'ingredients' => 'Hand-whipped Arabica Espresso Foam, Full Cream Milk, Vanilla Extract, Cane Sugar.',
             'allergens' => 'Contains Milk and Caffeine.',
         ]);
 
         $bundle = Product::create([
             'category_id' => $bundles->id,
-            'name' => 'Morning Indulgence Bundle',
-            'slug' => 'morning-indulgence-bundle',
+            'name' => 'Bundling Package',
+            'slug' => 'bundling-package',
             'price' => 23000,
             'original_price' => 27000,
-            'description' => 'The ultimate signature pairing: One Silky Pudding Caramel + One Coffee Dalgona for the perfect afternoon artisanal comfort treat.',
-            'short_description' => '1x Silky Pudding Caramel + 1x Coffee Dalgona (Save Rp 4.000).',
-            'rating' => 4.9,
+            'description' => 'The ultimate pairing: One Silky Pudding Caramel and one refreshing Coffee Dalgona for the perfect afternoon break.',
+            'short_description' => 'One Silky Pudding Caramel + One Coffee Dalgona (Save 15%).',
+            'rating' => 5.0,
             'reviews_count' => 210,
             'image' => '/images/bundle_duo.jpg',
             'is_featured' => true,
@@ -110,44 +105,8 @@ class DatabaseSeeder extends Seeder
             'allergens' => 'Contains Milk, Dairy, and Caffeine.',
         ]);
 
-        Product::create([
-            'category_id' => $puddings->id,
-            'name' => 'Belgian Chocolate Silky Pudding',
-            'slug' => 'belgian-chocolate-silky-pudding',
-            'price' => 14000,
-            'original_price' => null,
-            'description' => 'Decadent silky pudding crafted with 70% Belgian dark cocoa, topped with a velvety espresso-infused chocolate glaze.',
-            'short_description' => 'Rich Belgian dark chocolate pudding with chocolate curls.',
-            'rating' => 4.9,
-            'reviews_count' => 86,
-            'image' => '/images/chocolate_pudding.jpg',
-            'is_featured' => false,
-            'sweetness_level' => 'Regular',
-            'coffee_intensity' => 'None',
-            'ingredients' => 'Belgian Dark Chocolate (70%), Fresh Cream, Organic Milk, Roasted Cocoa Nibs.',
-            'allergens' => 'Contains Milk. May contain traces of soy.',
-        ]);
-
-        $honeyDalgona = Product::create([
-            'category_id' => $drinks->id,
-            'name' => 'Honey Dalgona Cloud Brew',
-            'slug' => 'honey-dalgona-cloud-brew',
-            'price' => 17000,
-            'original_price' => null,
-            'description' => 'Iced milk topped with whipped espresso cloud foam, pure organic wildflower honey drizzle, and crunchy honeycomb shards.',
-            'short_description' => 'Whipped espresso foam with wildflower honey drizzle & honeycomb.',
-            'rating' => 4.8,
-            'reviews_count' => 72,
-            'image' => '/images/honey_dalgona.jpg',
-            'is_featured' => false,
-            'sweetness_level' => 'Regular',
-            'coffee_intensity' => 'Bold',
-            'ingredients' => 'Whipped Espresso Cream, Wildflower Forest Honey, Chilled Fresh Milk, Honeycomb Toffee.',
-            'allergens' => 'Contains Milk and Caffeine.',
-        ]);
-
         // 4. Sample Order from Prototype (#SLK-79401)
-        $order = \App\Models\Order::create([
+        $order = Order::create([
             'order_number' => 'SLK-79401',
             'customer_name' => 'Alexandra Valerie',
             'whatsapp_number' => '+62 812-3456-7890',
@@ -161,7 +120,7 @@ class DatabaseSeeder extends Seeder
             'status' => 'preparing',
         ]);
 
-        \App\Models\OrderItem::create([
+        OrderItem::create([
             'order_id' => $order->id,
             'product_id' => $bundle->id,
             'product_name' => $bundle->name,
@@ -174,7 +133,7 @@ class DatabaseSeeder extends Seeder
             'subtotal' => 25000,
         ]);
 
-        \App\Models\OrderItem::create([
+        OrderItem::create([
             'order_id' => $order->id,
             'product_id' => $pudding->id,
             'product_name' => $pudding->name,

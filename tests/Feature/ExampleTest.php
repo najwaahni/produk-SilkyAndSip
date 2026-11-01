@@ -12,6 +12,8 @@ class ExampleTest extends TestCase
             '/',
             '/shop',
             '/shop/silky-pudding-caramel',
+            '/shop/coffee-dalgona',
+            '/shop/bundling-package',
             '/custom',
             '/ai-assistant',
             '/cart',

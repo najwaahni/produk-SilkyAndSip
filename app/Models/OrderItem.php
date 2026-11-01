@@ -47,3 +47,4 @@ class OrderItem extends Model
         return 'Rp ' . number_format($this->subtotal, 0, ',', '.');
     }
 }
+

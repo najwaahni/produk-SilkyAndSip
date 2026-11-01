@@ -26,3 +26,4 @@ class Addon extends Model
         return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
 }
+

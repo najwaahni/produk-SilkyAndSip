@@ -232,3 +232,4 @@ class CartController extends Controller
         return redirect()->route('order.success', $order->id)->with('success', 'Pesanan Anda berhasil dikonfirmasi!');
     }
 }
+

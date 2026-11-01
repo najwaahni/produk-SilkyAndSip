@@ -227,10 +227,10 @@
                     <h4 class="text-sm font-bold uppercase tracking-wider text-brand-amber mb-4">Menu Unggulan</h4>
                     <ul class="space-y-2 text-sm text-brand-cream/75">
                         <li>Silky Pudding Caramel (Rp 12.000)</li>
-                        <li>Coffee Dalgona Signature (Rp 15.000)</li>
-                        <li>Morning Indulgence Bundle (Rp 23.000)</li>
-                        <li>Wild Honey Drizzle Add-on</li>
-                        <li>Extra Caramel Sauce</li>
+                        <li>Coffee Dalgona (Rp 15.000)</li>
+                        <li>Bundling Package (Rp 23.000)</li>
+                        <li>Wild Honey Drizzle (+Rp 3.000)</li>
+                        <li>Extra Caramel Sauce (+Rp 2.000)</li>
                     </ul>
                 </div>
 
@@ -266,3 +266,4 @@
     @stack('scripts')
 </body>
 </html>
+

@@ -78,14 +78,22 @@
                     <!-- Product Image -->
                     <div class="relative aspect-[4/3] bg-brand-ivory overflow-hidden group">
                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        @if($product->original_price)
-                            <div class="absolute top-4 left-4 bg-rose-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                                Hemat Rp {{ number_format($product->original_price - $product->price, 0, ',', '.') }}
+                        @if($product->slug === 'silky-pudding-caramel')
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[#4A2E1B] text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
+                                Best Seller
+                            </div>
+                        @elseif($product->slug === 'coffee-dalgona')
+                            <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[#4A2E1B] text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
+                                Staff Pick
+                            </div>
+                        @elseif($product->slug === 'bundling-package')
+                            <div class="absolute top-4 left-4 bg-[#8E4B1B] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
+                                Save 15%
                             </div>
                         @endif
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-brand-coffee flex items-center gap-1 shadow-sm">
                             <i class="fa-solid fa-star text-amber-500 text-[10px]"></i>
-                            <span>{{ $product->rating }}</span>
+                            <span>{{ number_format($product->rating, 1) }}</span>
                             <span class="text-brand-coffeeMuted text-[10px]">({{ $product->reviews_count }})</span>
                         </div>
                     </div>
@@ -228,3 +236,4 @@
     </div>
 </div>
 @endsection
+

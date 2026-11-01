@@ -40,3 +40,4 @@ class OrderController extends Controller
         return view('pages.invoice', compact('order'));
     }
 }
+

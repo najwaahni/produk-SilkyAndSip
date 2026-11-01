@@ -39,3 +39,4 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Status pesanan #{$order->order_number} berhasil diperbarui.");
     }
 }
+

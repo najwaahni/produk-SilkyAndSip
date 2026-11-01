@@ -10,7 +10,7 @@ class CustomTreatController extends Controller
 {
     public function index()
     {
-        $baseProducts = Product::whereIn('slug', ['silky-pudding-caramel', 'coffee-dalgona', 'belgian-chocolate-silky-pudding'])->get();
+        $baseProducts = Product::whereIn('slug', ['silky-pudding-caramel', 'coffee-dalgona'])->get();
         $addons = Addon::where('is_active', true)->get();
 
         return view('pages.custom-treat', compact('baseProducts', 'addons'));
@@ -81,3 +81,4 @@ class CustomTreatController extends Controller
         return redirect()->route('cart.index')->with('success', 'Custom treat created and added to cart!');
     }
 }
+
