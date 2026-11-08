@@ -14,11 +14,20 @@ class CartController extends Controller
     public function index()
     {
         $cart = session()->get('cart', []);
+        $productIds = collect($cart)->pluck('product_id')->filter()->unique();
+        $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
         $subtotal = 0;
 
-        foreach ($cart as $item) {
+        foreach ($cart as $key => $item) {
+            $product = $products->get($item['product_id'] ?? null);
+            if ($product) {
+                $cart[$key]['image'] = $product->image;
+            }
+
             $subtotal += $item['subtotal'];
         }
+
+        session()->put('cart', $cart);
 
         // Delivery fee: Rp 5.000, free for orders >= Rp 35.000
         $deliveryFee = ($subtotal >= 35000 || $subtotal == 0) ? 0 : 5000;

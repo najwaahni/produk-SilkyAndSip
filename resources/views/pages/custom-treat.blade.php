@@ -89,7 +89,7 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <h4 class="font-serif font-bold text-brand-coffee text-base">Wild Honey Drizzle</h4>
-                            <span class="text-brand-caramel font-bold text-xs">+Rp 3.000</span>
+                            <span class="text-brand-caramel font-bold text-xs">+Rp 2.000</span>
                         </div>
                         <p class="text-xs text-brand-coffeeMuted mt-0.5">Pure organic wildflower honey for a smooth floral note.</p>
                     </div>

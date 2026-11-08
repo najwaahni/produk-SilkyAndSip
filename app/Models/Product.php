@@ -39,6 +39,13 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getImageAttribute($value): ?string
+    {
+        return ($this->attributes['slug'] ?? null) === 'bundling-package'
+            ? '/images/cand_bundle2.jpg'
+            : $value;
+    }
+
     public function getFormattedPriceAttribute(): string
     {
         return 'Rp ' . number_format($this->price, 0, ',', '.');

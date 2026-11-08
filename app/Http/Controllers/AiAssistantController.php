@@ -34,7 +34,7 @@ class AiAssistantController extends Controller
         if (str_contains($message, 'sweet') || str_contains($message, 'manis') || str_contains($message, 'creamy') || str_contains($message, 'pudding')) {
             $reply = "Berdasarkan selera Anda yang menyukai sensasi manis dan lembut di lidah, rekomendasi nomor satu kami adalah **Silky Pudding Caramel**! Puding vanilla Madagascar dengan saus caramel panggang gurih keemasan.";
             $recommendedProducts[] = $pudding;
-            if ($bundle && $budget >= 23000) {
+            if ($bundle && $budget >= 25000) {
                 $reply .= " Jika ingin sekalian menikmati kopi dalgona, **Bundling Package** adalah pilihan paling hemat.";
                 $recommendedProducts[] = $bundle;
             }
@@ -45,7 +45,7 @@ class AiAssistantController extends Controller
                 $recommendedProducts[] = $bundle;
             }
         } elseif (str_contains($message, 'bundle') || str_contains($message, 'paket') || str_contains($message, 'hemat') || str_contains($message, 'promo') || str_contains($message, 'berdua')) {
-            $reply = "Pilihan paling hemat dan favorit kami adalah **Bundling Package** (Save 15%)! Anda mendapatkan 1x Silky Pudding Caramel + 1x Coffee Dalgona hanya Rp 23.000.";
+            $reply = "Pilihan paling hemat dan favorit kami adalah **Bundling Package** (Hemat Rp 2.000)! Anda mendapatkan 1x Silky Pudding Caramel + 1x Coffee Dalgona hanya Rp 25.000.";
             $recommendedProducts[] = $bundle;
         } else {
             $reply = "Halo! Menu eksklusif kami terdiri dari **Silky Pudding Caramel**, **Coffee Dalgona**, dan **Bundling Package** hemat. Beritahu kami apa yang sedang Anda inginkan!";

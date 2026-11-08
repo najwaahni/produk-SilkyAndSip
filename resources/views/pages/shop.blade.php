@@ -88,7 +88,7 @@
                             </div>
                         @elseif($product->slug === 'bundling-package')
                             <div class="absolute top-4 left-4 bg-[#8E4B1B] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-sm">
-                                Save 15%
+                                Hemat Rp 2.000
                             </div>
                         @endif
                         <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-xs font-bold text-brand-coffee flex items-center gap-1 shadow-sm">

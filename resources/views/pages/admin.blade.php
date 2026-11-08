@@ -18,6 +18,13 @@
                 <a href="{{ route('home') }}" class="px-4 py-2 rounded-full bg-white border border-brand-latte text-brand-coffee text-xs font-bold hover:bg-brand-ivory transition-colors">
                     Lihat Website
                 </a>
+
+                <form action="{{ route('logout.post') }}" method="POST" class="inline-block">
+                    @csrf
+                    <button type="submit" class="px-4 py-2 rounded-full bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition-colors">
+                        Keluar
+                    </button>
+                </form>
             </div>
         </div>
 

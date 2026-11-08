@@ -61,7 +61,7 @@
             <div class="lg:col-span-5 relative">
                 <div class="relative mx-auto max-w-md lg:max-w-none">
                     <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-[4/3] bg-brand-ivory group">
-                        <img src="{{ asset('images/bundle_duo.jpg') }}" alt="Silky & SIP pairing" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="{{ asset('images/cand_bundle2.jpg') }}" alt="Kopi dan dessert SILKY & SIP" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-brand-coffee/70 via-transparent to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white space-y-1">
                             <span class="inline-block px-3 py-1 bg-brand-caramel/90 backdrop-blur-md text-[11px] font-bold rounded-full uppercase tracking-wider">
@@ -89,8 +89,8 @@
                             <i class="fa-solid fa-gift"></i>
                         </div>
                         <div>
-                            <p class="text-xs font-bold text-white">Save 15%</p>
-                            <p class="text-[11px] text-brand-amber font-semibold">Bundling Rp 23.000</p>
+                            <p class="text-xs font-bold text-white">Hemat Rp 2.000</p>
+                            <p class="text-[11px] text-brand-amber font-semibold">Bundling Rp 25.000</p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                                 </div>
                             @elseif($product->slug === 'bundling-package')
                                 <div class="absolute top-2.5 left-2.5 bg-[#8E4B1B] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
-                                    Save 15%
+                                    Hemat Rp 2.000
                                 </div>
                             @endif
                         </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 
 // 1. Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -36,6 +37,17 @@ Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout.pr
 Route::get('/order-success/{id}', [OrderController::class, 'success'])->name('order.success');
 Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('order.invoice');
 
-// 7. Admin Dashboard
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-Route::post('/admin/orders/{id}/status', [AdminController::class, 'updateStatus'])->name('admin.orders.status');
+// 7. Authentication
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+});
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout.post');
+
+// 8. Admin Dashboard
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/admin/orders/{id}/status', [AdminController::class, 'updateStatus'])->name('admin.orders.status');
+});

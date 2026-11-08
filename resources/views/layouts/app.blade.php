@@ -120,10 +120,19 @@
                     </a>
 
                     <!-- Admin Portal Pill -->
-                    <a href="{{ route('admin.index') }}" title="Kelola Pesanan" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-full text-brand-coffeeMuted hover:text-brand-coffee hover:bg-brand-ivory transition-colors">
-                        <i class="fa-solid fa-clipboard-list"></i>
-                        <span>Admin</span>
-                    </a>
+                    @auth
+                        @if(Auth::user()->is_admin)
+                            <a href="{{ route('admin.index') }}" title="Kelola Pesanan" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-full text-brand-coffeeMuted hover:text-brand-coffee hover:bg-brand-ivory transition-colors">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                                <span>Admin</span>
+                            </a>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" title="Masuk Admin" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-full text-brand-coffeeMuted hover:text-brand-coffee hover:bg-brand-ivory transition-colors">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <span>Admin Login</span>
+                        </a>
+                    @endauth
 
                     <!-- Mobile Menu Button -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-10 h-10 rounded-xl bg-brand-ivory flex items-center justify-center text-brand-coffee focus:outline-none">
@@ -149,9 +158,17 @@
                 <a href="{{ route('cart.index') }}" class="block px-4 py-2.5 rounded-xl text-base font-semibold {{ request()->routeIs('cart.*') ? 'bg-brand-coffee text-white' : 'text-brand-coffee hover:bg-brand-ivory' }}">
                     <i class="fa-solid fa-bag-shopping text-brand-caramel mr-2"></i>Keranjang ({{ $cartCount }})
                 </a>
-                <a href="{{ route('admin.index') }}" class="block px-4 py-2.5 rounded-xl text-base font-semibold text-brand-coffeeMuted hover:bg-brand-ivory">
-                    <i class="fa-solid fa-clipboard-list mr-2"></i>Admin Dashboard
-                </a>
+                @auth
+                    @if(Auth::user()->is_admin)
+                        <a href="{{ route('admin.index') }}" class="block px-4 py-2.5 rounded-xl text-base font-semibold text-brand-coffeeMuted hover:bg-brand-ivory">
+                            <i class="fa-solid fa-clipboard-list mr-2"></i>Admin Dashboard
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" class="block px-4 py-2.5 rounded-xl text-base font-semibold text-brand-coffeeMuted hover:bg-brand-ivory">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i>Admin Login
+                    </a>
+                @endauth
             </div>
         </div>
     </header>
@@ -228,8 +245,8 @@
                     <ul class="space-y-2 text-sm text-brand-cream/75">
                         <li>Silky Pudding Caramel (Rp 12.000)</li>
                         <li>Coffee Dalgona (Rp 15.000)</li>
-                        <li>Bundling Package (Rp 23.000)</li>
-                        <li>Wild Honey Drizzle (+Rp 3.000)</li>
+                        <li>Bundling Package (Rp 25.000)</li>
+                        <li>Wild Honey Drizzle (+Rp 2.000)</li>
                         <li>Extra Caramel Sauce (+Rp 2.000)</li>
                     </ul>
                 </div>
