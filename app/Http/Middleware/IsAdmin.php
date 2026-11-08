@@ -18,9 +18,8 @@ class IsAdmin
         }
 
         $isAdmin = (bool) (Auth::user()->is_admin ?? false);
-        $fallbackAdmin = (bool) $request->session()->get('admin_login_fallback', false);
 
-        if (! $isAdmin && ! $fallbackAdmin) {
+        if (! $isAdmin) {
             return redirect()->route('home')->with('error', 'Akses admin hanya untuk pengguna dengan role administrator.');
         }
 

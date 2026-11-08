@@ -18,23 +18,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
-            ['email' => 'admin@silkyandsip.com'],
-            [
-                'name' => 'Admin Silky & SIP',
-                'password' => Hash::make('admin123'),
-                'is_admin' => true,
-            ]
-        );
+        $localEnvironment = app()->environment(['local', 'testing']);
+        $adminEmail = env('ADMIN_EMAIL', $localEnvironment ? 'admin@silkyandsip.com' : null);
+        $adminPassword = env('ADMIN_PASSWORD', $localEnvironment ? 'admin123' : null);
 
-        User::firstOrCreate(
-            ['email' => 'buyer@silkyandsip.com'],
-            [
-                'name' => 'Pembeli Demo',
-                'password' => Hash::make('buyer123'),
-                'is_admin' => false,
-            ]
-        );
+        if ($adminEmail && $adminPassword) {
+            User::updateOrCreate(
+                ['email' => $adminEmail],
+                [
+                    'name' => 'Admin Silky & SIP',
+                    'password' => Hash::make($adminPassword),
+                    'is_admin' => true,
+                ]
+            );
+        }
+
+        if ($localEnvironment) {
+            User::firstOrCreate(
+                ['email' => 'buyer@silkyandsip.com'],
+                [
+                    'name' => 'Pembeli Demo',
+                    'password' => Hash::make('buyer123'),
+                    'is_admin' => false,
+                ]
+            );
+        }
 
         $puddings = Category::firstOrCreate(
             ['slug' => 'puddings'],
@@ -138,50 +146,52 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $order = Order::firstOrCreate(
-            ['order_number' => 'SLK-79401'],
-            [
-                'customer_name' => 'Alexandra Valerie',
-                'whatsapp_number' => '+62 812-3456-7890',
-                'delivery_address' => 'Jl. Palembang-Prabumulih KM. 32, Indralaya, Ogan Ilir, Sumatera Selatan',
-                'delivery_notes' => 'Tolong sediakan sendok kayu ekstra.',
-                'payment_method' => 'qris',
-                'subtotal' => 39000,
-                'delivery_fee' => 0,
-                'tax_amount' => 3900,
-                'total_amount' => 42900,
-                'status' => 'preparing',
-            ]
-        );
+        if ($localEnvironment) {
+            $order = Order::firstOrCreate(
+                ['order_number' => 'SLK-79401'],
+                [
+                    'customer_name' => 'Alexandra Valerie',
+                    'whatsapp_number' => '+62 812-3456-7890',
+                    'delivery_address' => 'Jl. Palembang-Prabumulih KM. 32, Indralaya, Ogan Ilir, Sumatera Selatan',
+                    'delivery_notes' => 'Tolong sediakan sendok kayu ekstra.',
+                    'payment_method' => 'qris',
+                    'subtotal' => 39000,
+                    'delivery_fee' => 0,
+                    'tax_amount' => 3900,
+                    'total_amount' => 42900,
+                    'status' => 'preparing',
+                ]
+            );
 
-        $orderItemExists = OrderItem::where('order_id', $order->id)->where('product_id', $bundle->id)->exists();
-        if (! $orderItemExists) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $bundle->id,
-                'product_name' => $bundle->name,
-                'price' => $bundle->price,
-                'quantity' => 1,
-                'sweetness' => 'Regular',
-                'selected_addons' => [
-                    ['name' => 'Extra Caramel Sauce', 'price' => 2000],
-                ],
-                'subtotal' => 27000,
-            ]);
-        }
+            $orderItemExists = OrderItem::where('order_id', $order->id)->where('product_id', $bundle->id)->exists();
+            if (! $orderItemExists) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $bundle->id,
+                    'product_name' => $bundle->name,
+                    'price' => $bundle->price,
+                    'quantity' => 1,
+                    'sweetness' => 'Regular',
+                    'selected_addons' => [
+                        ['name' => 'Extra Caramel Sauce', 'price' => 2000],
+                    ],
+                    'subtotal' => 27000,
+                ]);
+            }
 
-        $puddingItemExists = OrderItem::where('order_id', $order->id)->where('product_id', $pudding->id)->exists();
-        if (! $puddingItemExists) {
-            OrderItem::create([
-                'order_id' => $order->id,
-                'product_id' => $pudding->id,
-                'product_name' => $pudding->name,
-                'price' => $pudding->price,
-                'quantity' => 1,
-                'sweetness' => 'Less Sweet',
-                'selected_addons' => [],
-                'subtotal' => 12000,
-            ]);
+            $puddingItemExists = OrderItem::where('order_id', $order->id)->where('product_id', $pudding->id)->exists();
+            if (! $puddingItemExists) {
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $pudding->id,
+                    'product_name' => $pudding->name,
+                    'price' => $pudding->price,
+                    'quantity' => 1,
+                    'sweetness' => 'Less Sweet',
+                    'selected_addons' => [],
+                    'subtotal' => 12000,
+                ]);
+            }
         }
     }
 }

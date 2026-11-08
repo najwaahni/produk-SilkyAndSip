@@ -35,14 +35,6 @@ class AuthController extends Controller
             return redirect()->intended(route('admin.index'));
         }
 
-        if ($credentials['email'] === 'admin@silkyandsip.com' && $credentials['password'] === 'admin123') {
-            $request->session()->put('admin_login_fallback', true);
-            $request->session()->put('admin_name', 'Admin Silky & SIP');
-            $request->session()->regenerate();
-
-            return redirect()->intended(route('admin.index'));
-        }
-
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->onlyInput('email');

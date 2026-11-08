@@ -1,0 +1,13 @@
+.git
+.env
+.env.*
+!.env.example
+.vercel
+.vscode
+node_modules
+vendor
+tests
+database/database.sqlite
+public/build
+public/hot
+storage/logs/*.log

@@ -105,3 +105,24 @@ Untuk melakukan reset dan memasukkan kembali data awal (seed):
 - **Frontend:** Blade Templating Engine + Tailwind CSS + Alpine.js
 - **Typography:** *Playfair Display* (Serif Elegan) & *Plus Jakarta Sans* (Modern Clean Sans)
 - **Palette Warna:** Warm Cream (`#FAF7F2`), Artisanal Caramel (`#C67D38`), Rich Coffee (`#23150F`), Amber Gold (`#DF9B52`).
+
+---
+
+## Deploy ke Vercel
+
+Deploy menggunakan **Container Runtime Vercel + FrankenPHP**. SQLite lokal tidak persisten di Vercel; siapkan database MySQL atau PostgreSQL eksternal sebelum menerima pesanan.
+
+1. Push repository ke GitHub dan import ke Vercel. Pastikan **Root Directory** menunjuk ke folder proyek yang berisi `Dockerfile`.
+2. Tambahkan environment variables pada Vercel untuk Production dan Preview:
+   - `APP_KEY`: hasilkan dengan `php artisan key:generate --show`; simpan nilainya hanya di pengaturan Vercel.
+   - `APP_URL`: URL deployment, misalnya `https://nama-proyek.vercel.app`.
+   - `DB_CONNECTION`: `mysql` atau `pgsql`, beserta `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` dari penyedia database.
+   - `ADMIN_EMAIL` dan `ADMIN_PASSWORD`: kredensial admin unik untuk deployment. Jangan gunakan password demo lokal.
+   - `APP_ENV=production`, `APP_DEBUG=false`, `LOG_CHANNEL=stderr`.
+3. Jalankan migrasi pada database tersebut dari runner yang aman dan memakai environment variables production: `php artisan migrate --force`.
+4. Isi katalog dan buat admin dengan `php artisan db:seed --force`. Di production, admin hanya dibuat jika `ADMIN_EMAIL` dan `ADMIN_PASSWORD` tersedia. Seeder juga memasukkan data demo, termasuk satu pesanan contoh.
+5. Deploy ulang. Endpoint kesehatan Laravel tersedia di `/up`.
+
+`SESSION_DRIVER=database` dan `CACHE_STORE=database` sudah dipilih pada image supaya session admin tersimpan di database bersama. Image juga membangun aset Vite; file `.env`, database SQLite lokal, `vendor`, dan `node_modules` tidak ikut dikirim sebagai konteks rahasia/duplikat.
+
+Unggahan, bila ditambahkan nanti, harus disimpan di object storage seperti Vercel Blob; filesystem container tidak persisten. Jangan jalankan migrasi otomatis saat container mulai, karena beberapa instance dapat mulai bersamaan.
