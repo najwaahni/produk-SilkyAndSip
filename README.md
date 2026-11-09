@@ -119,7 +119,7 @@ Deploy menggunakan **Container Runtime Vercel + FrankenPHP**. SQLite lokal tidak
    - `DB_CONNECTION`: `mysql` atau `pgsql`, beserta `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` dari penyedia database.
    - `ADMIN_EMAIL` dan `ADMIN_PASSWORD`: kredensial admin unik untuk deployment. Jangan gunakan password demo lokal.
    - `APP_ENV=production`, `APP_DEBUG=false`, `LOG_CHANNEL=stderr`.
-   - Untuk Neon, integrasi Vercel menyediakan `DATABASE_URL`; gunakan `DB_CONNECTION=pgsql` dan isi `DB_ENDPOINT` dengan ID endpoint dari hostname Neon. Konfigurasi PostgreSQL membaca `DATABASE_URL` dan meneruskan ID endpoint agar kompatibel dengan driver PostgreSQL yang belum mendukung SNI.
+   - Untuk Neon, integrasi Vercel menyediakan `DATABASE_URL`; gunakan `DB_CONNECTION=pgsql` dan isi `DB_ENDPOINT` dengan label hostname koneksi Neon, termasuk akhiran `-pooler` bila menggunakan connection pooler. Konfigurasi PostgreSQL membaca `DATABASE_URL` dan meneruskan ID tersebut agar kompatibel dengan driver PostgreSQL yang belum mendukung SNI.
 3. Jalankan migrasi pada database tersebut dari runner yang aman dan memakai environment variables production: `php artisan migrate --force`.
 4. Isi katalog dan buat admin dengan `php artisan db:seed --force`. Di production, admin hanya dibuat jika `ADMIN_EMAIL` dan `ADMIN_PASSWORD` tersedia. Seeder juga memasukkan data demo, termasuk satu pesanan contoh.
 5. Deploy ulang. Endpoint kesehatan Laravel tersedia di `/up`.
